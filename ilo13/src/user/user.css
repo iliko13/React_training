@@ -1,0 +1,29 @@
+.delete-icon:hover,
+.edit-icon:hover {
+  opacity: 0.5;
+}
+
+aside form input:not([type="checkbox"]),
+aside form textarea,
+aside form button {
+  width: 90%;
+  padding: 15px 5%;
+  margin-bottom: 10px;
+  border: 0;
+  background: #222;
+  color: #fff;
+  outline: none;
+}
+
+aside form input[type="checkbox"] {
+  margin: 10px;
+}
+
+aside form button {
+  width: 100%;
+  cursor: pointer;
+  transition: transform 500ms ease;
+}
+aside form button:hover {
+  transform: scale(1.1);
+}

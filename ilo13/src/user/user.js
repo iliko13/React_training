@@ -30,7 +30,7 @@ class User extends React.Component {
         <h3>
           {this.user.first_name} {this.user.last_name}
         </h3>
-        <img src={this.user.avatar} />
+        <img src={this.user.avatar} alt="avatar" />
         <p>{this.user.isHappy ? "Happy" : "Not Happy"}</p>
 
         {this.state.editForm && (

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
 
 // function App() {
@@ -269,65 +269,165 @@ import "./App.css";
 
 //
 
-import Users from "./user/users";
-import AddUser from "./user/AddUser";
-import axios from "axios";
+// import Users from "./user/users";
+// import AddUser from "./user/AddUser";
+// import axios from "axios";
 
-const baseUrl = "https://reqres.in/api/users?page=2";
+// const baseUrl = "https://reqres.in/api/users?page=2";
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
+// class App extends React.Component {
+//   constructor(props) {
+//     super(props);
 
-    axios.get(baseUrl).then((res) => {
-      this.setState({ users: res.data.data });
-    });
+//     axios.get(baseUrl).then((res) => {
+//       this.setState({ users: res.data.data });
+//     });
 
-    this.state = {
-      users: [],
-    };
-    this.addUser = this.addUser.bind(this);
-    this.deleteUser = this.deleteUser.bind(this);
-    this.editUser = this.editUser.bind(this);
-  }
+//     this.state = {
+//       users: [],
+//     };
+//     this.addUser = this.addUser.bind(this);
+//     this.deleteUser = this.deleteUser.bind(this);
+//     this.editUser = this.editUser.bind(this);
+//   }
 
-  render() {
-    return (
-      <>
-        <main>
-          <Users
-            users={this.state.users}
-            onEdit={this.editUser}
-            onDelete={this.deleteUser}
-          />
-        </main>
-        <aside>
-          <AddUser onAdd={this.addUser} />
-        </aside>
-      </>
-    );
-  }
+//   render() {
+//     return (
+//       <>
+//         <main>
+//           <Users
+//             users={this.state.users}
+//             onEdit={this.editUser}
+//             onDelete={this.deleteUser}
+//           />
+//         </main>
+//         <aside>
+//           <AddUser onAdd={this.addUser} />
+//         </aside>
+//       </>
+//     );
+//   }
 
-  deleteUser(id) {
-    this.setState({
-      users: this.state.users.filter((el) => el.id !== id),
-    });
-  }
+//   deleteUser(id) {
+//     this.setState({
+//       users: this.state.users.filter((el) => el.id !== id),
+//     });
+//   }
 
-  editUser(user) {
-    let allUsers = this.state.users;
-    allUsers[user.id - 1] = user;
+//   editUser(user) {
+//     let allUsers = this.state.users;
+//     allUsers[user.id - 1] = user;
 
-    this.setState({ users: [] }, () => {
-      this.setState({ users: [...allUsers] });
-    });
-  }
+//     this.setState({ users: [] }, () => {
+//       this.setState({ users: [...allUsers] });
+//     });
+//   }
 
-  addUser(user) {
-    const id = this.state.users.length + 1;
-    this.setState({ users: [...this.state.users, { id, ...user }] });
-    // ამით ჩვენ არსებულ users -ის ორ მონაცემის მერე ვუწერთ შემდეგში მომხრებლის მიერ დაწერილი ინფო
-  }
+//   addUser(user) {
+//     const id = this.state.users.length + 1;
+//     this.setState({ users: [...this.state.users, { id, ...user }] });
+//     // ამით ჩვენ არსებულ users -ის ორ მონაცემის მერე ვუწერთ შემდეგში მომხრებლის მიერ დაწერილი ინფო
+//   }
+// }
+
+// export default App;
+
+//
+// - udemy
+//useState in arrays
+// const data = [
+//   { id: 1, firstName: "Ilia", secondName: "Kukava" },
+//   { id: 2, firstName: "Mishka", secondName: "Jgamadze" },
+//   { id: 3, firstName: "Kato", secondName: "Jgamadze" },
+// ];
+
+// function App() {
+//   const [people, setPeople] = useState(data);
+
+//   const removeItem = (id) => {
+//     const newPeople = people.filter((person) => person.id !== id);
+//     setPeople(newPeople);
+//   };
+
+//   const removeAllItem = () => {
+//     setPeople([]);
+//   };
+
+//   return (
+//     <>
+//       {people.map((person) => {
+//         const { id, firstName, secondName } = person;
+
+//         return (
+//           <div key={id}>
+//             <h3>
+//               {firstName} {secondName}
+//             </h3>
+//             <button
+//               type="button"
+//               onClick={() => {
+//                 removeItem(id);
+//               }}
+//             >
+//               Remove
+//             </button>
+//           </div>
+//         );
+//       })}
+//       <button type="button" onClick={removeAllItem}>
+//         Remove All
+//       </button>
+//     </>
+//   );
+// }
+
+// export default App;
+
+//useState in objects
+// function App() {
+//   const [person, setPerson] = useState({
+//     firstName: "ilia",
+//     age: 25,
+//     hobby: "Reading books",
+//   });
+
+//   const clickEvent = () => {
+//     setPerson({ firstName: "Mishka", age: 24, hobby: "playing games" });
+//   };
+//   const clickEvent2 = () => {
+//     setPerson({ ...person, firstName: "Vova" });
+//   };
+
+//   return (
+//     <>
+//       <h1>{person.firstName}</h1>
+//       <h3>{person.age}</h3>
+//       <p>{person.hobby}</p>
+//       <button onClick={clickEvent}>Show another person</button>
+//       <button onClick={clickEvent2}>Change only name</button>
+//     </>
+//   );
+// }
+
+// export default App;
+
+function App() {
+  const [value, setValue] = useState(0);
+
+  const handleClick = () => {
+    setTimeout(() => {
+      setValue((currentState) => {
+        return currentState + 1;
+      });
+    }, 3000);
+  };
+
+  return (
+    <>
+      <h1>{value}</h1>
+      <button onClick={handleClick}>increase</button>
+    </>
+  );
 }
 
 export default App;

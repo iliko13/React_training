@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 
 // function App() {
@@ -411,23 +411,48 @@ import "./App.css";
 
 // export default App;
 
+//
+//settimeout
+// function App() {
+//   const [value, setValue] = useState(0);
+
+//   const handleClick = () => {
+//     setTimeout(() => {
+//       setValue((currentState) => {
+//         return currentState + 1;
+//       });
+//     }, 3000);
+//   };
+
+//   return (
+//     <>
+//       <h1>{value}</h1>
+//       <button onClick={handleClick}>increase</button>
+//     </>
+//   );
+// }
+
+// export default App;
+
+//
+//useEffect
+
+//1
+//
+
+//2
 function App() {
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState(true);
 
-  const handleClick = () => {
+  useEffect(() => {
     setTimeout(() => {
-      setValue((currentState) => {
-        return currentState + 1;
-      });
+      setValue(false);
     }, 3000);
-  };
+  });
 
-  return (
-    <>
-      <h1>{value}</h1>
-      <button onClick={handleClick}>increase</button>
-    </>
-  );
+  if (value) {
+    return <h3>Loading ...</h3>;
+  }
+  return <h3>Here it is</h3>;
 }
-
 export default App;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useReducer, useRef } from "react";
 import "./App.css";
 
 // function App() {
@@ -440,19 +440,272 @@ import "./App.css";
 //1
 //
 
+// function App() {
+//   const [value, setValue] = useState(true);
+
+//   useEffect(() => {
+//     setTimeout(() => {
+//       setValue(false);
+//     }, 3000);
+//   });
+
+//   if (value) {
+//     return <h3>Loading ...</h3>;
+//   }
+//   return <h3>Here it is</h3>;
+// }
+// export default App;
+
+//
 //2
-function App() {
-  const [value, setValue] = useState(true);
+// fetch data
+// const url = "....";
 
-  useEffect(() => {
-    setTimeout(() => {
-      setValue(false);
-    }, 3000);
-  });
+// function App() {
+//   const [isloading, setIsLoading] = useState(true);
+//   const [isError, setIsError] = useState(false);
 
-  if (value) {
-    return <h3>Loading ...</h3>;
-  }
-  return <h3>Here it is</h3>;
-}
-export default App;
+//   const [user, setUser] = useState(null);
+
+//   useEffect(() => {
+//     const fetchUser = async () => {
+//       try {
+//         const resp = await fetch(url);
+//         if (!resp.ok) {
+//           setIsError(true);
+//           setIsLoading(false);
+//           return;
+//         }
+//         const user = await resp.json();
+//         setUser(user);
+//       } catch (error) {
+//         setIsError(error);
+//         console.log(error);
+//       }
+//       setIsLoading(false);
+//     };
+//     fetchUser();
+//   }, []);
+
+//   if (isloading) {
+//     return <h2>Loading...</h2>;
+//   }
+
+//   if (isError) {
+//     return <h2>There was an error</h2>;
+//   }
+
+//   const { name, avatar_url } = user;
+
+//   return (
+//     <>
+//       <h2>{name}</h2>;
+//       <img src={avatar_url} alt={name} />;
+//     </>
+//   );
+// }
+
+// export default App;
+
+//
+//3
+// login
+// function App() {
+//   const [user, setUser] = useState(null);
+
+//   const login = () => {
+//     setUser({ firstName: "Iliko Kukava" });
+//   };
+
+//   const logout = () => {
+//     setUser(null);
+//   };
+
+//   return (
+//     <>
+//       {user ? (
+//         <div>
+//           <h3>Hello dear, {user.firstName}</h3>
+//           <button onClick={logout}>logout</button>
+//         </div>
+//       ) : (
+//         <div>
+//           <h3>Please login</h3>
+//           <button onClick={login}>login</button>
+//         </div>
+//       )}
+//     </>
+//   );
+// }
+
+// export default App;
+
+//4
+// //toggle button
+// function App() {
+//   const [toggle, setToggle] = useState(false);
+
+//   const RandomComponent = () => {
+//     useEffect(() => {
+//       console.log("Hello, Iliko");
+//       const intId = setInterval(() => {
+//         console.log("Hello, Mariam");
+//       }, 1000);
+//       return () => {
+//         clearInterval(intId);
+//       };
+//     }, []);
+//     return <h1>Iliko Kukava</h1>;
+//   };
+//   return (
+//     <>
+//       <button
+//         onClick={() => {
+//           setToggle(!toggle);
+//         }}
+//       >
+//         toggle component
+//       </button>
+//       {toggle && <RandomComponent />}
+//     </>
+//   );
+// }
+
+// export default App;
+
+//
+// //useReducer
+// const data = [
+//   { id: 1, firstName: "Ilia", secondName: "Kukava" },
+//   { id: 2, firstName: "Mishka", secondName: "Jgamadze" },
+//   { id: 3, firstName: "Kato", secondName: "Jgamadze" },
+// ];
+
+// const defaultState = {
+//   people: data,
+// };
+
+// const CLEAR_LIST = "CLEAR_LIST";
+// const RESET_LIST = "RESET_LIST";
+// const REMOVE_LIST = "REMOVE_LIST";
+
+// const reducer = (state, action) => {
+//   if (action.type === CLEAR_LIST) {
+//     return { ...state, people: [] };
+//   }
+//   if (action.type === RESET_LIST) {
+//     return { ...state, people: data };
+//   }
+//   if (action.type === REMOVE_LIST) {
+//     const newPeople = state.people.filter(
+//       (person) => person.id !== action.payload.id
+//     );
+//     return { ...state, people: newPeople };
+//   }
+
+//   throw new Error(`No matching '${action.type}' -action type`);
+// };
+
+// function App() {
+//   const [state, dispatch] = useReducer(reducer, defaultState);
+
+//   const removeItem = (id) => {
+//     // const newPeople = people.filter((person) => person.id !== id);
+//     // setPeople(newPeople);
+//     dispatch({ type: REMOVE_LIST, payload: { id } });
+//   };
+
+//   const removeAllItem = () => {
+//     // setPeople([]);
+//     dispatch({ type: CLEAR_LIST });
+//   };
+
+//   const resetAllItem = () => {
+//     // setPeople(data);
+//     dispatch({ type: RESET_LIST });
+//   };
+//   return (
+//     <>
+//       {state.people.map((person) => {
+//         const { id, firstName, secondName } = person;
+
+//         return (
+//           <div key={id}>
+//             <h3>
+//               {firstName} {secondName}
+//             </h3>
+//             <button
+//               type="button"
+//               onClick={() => {
+//                 removeItem(id);
+//               }}
+//             >
+//               Remove
+//             </button>
+//           </div>
+//         );
+//       })}
+
+//       {state.people.length < 1 ? (
+//         <button type="button" onClick={resetAllItem}>
+//           Reset
+//         </button>
+//       ) : (
+//         <button type="button" onClick={removeAllItem}>
+//           Remove All
+//         </button>
+//       )}
+//     </>
+//   );
+// }
+
+// export default App;
+
+//
+// useEffect
+// function App() {
+//   const [state, setState] = useState(window.innerWidth);
+
+//   const handleResize = () => {
+//     setState(window.innerWidth);
+//   };
+
+//   useEffect(() => {
+//     window.addEventListener("resize", handleResize);
+
+//     return () => {
+//       window.removeEventListener("resize", handleResize);
+//     };
+//   }, []);
+
+//   return <>{state}</>;
+// }
+
+// export default App;
+
+//
+// //useRef
+// function App() {
+//   const [state, setState] = useState("");
+//   const initRef = useRef();
+
+//   const clickHandler = () => {
+//     initRef.current.focus();
+//   };
+
+//   return (
+//     <>
+//       <input
+//         ref={initRef}
+//         value={state}
+//         onChange={(e) => setState(e.target.value)}
+//       />
+//       <h3>Hello, Mr {state}</h3>
+//       <button onClick={clickHandler}>Focus</button>
+//     </>
+//   );
+// }
+
+// export default App;
+
+//

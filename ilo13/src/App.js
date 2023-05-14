@@ -709,3 +709,46 @@ import "./App.css";
 // export default App;
 
 //
+// //Custom hooks
+// //using custom hooks file
+// import useToggle from "./customhooks/customhook";
+
+// function App() {
+//   const [value, toggle] = useToggle(true);
+
+//   return (
+//     <>
+//       <h3>Toggle function</h3>
+//       <button onClick={toggle}>toggle</button>
+//       {value && <div>Hello everyone</div>}
+//     </>
+//   );
+// }
+
+// export default App;
+
+//
+import AddUser from "./components/Users/AddUser";
+import UsersList from "./components/Users/UsersList";
+
+function App() {
+  const [usersList, setUsersList] = useState([]);
+
+  const addUserHandler = (uName, uAge) => {
+    setUsersList((prevUsersList) => {
+      return [
+        ...prevUsersList,
+        { name: uName, age: uAge, id: Math.random().toString() },
+      ];
+    });
+  };
+
+  return (
+    <>
+      <AddUser onAddUser={addUserHandler} />
+      <UsersList users={usersList} />
+    </>
+  );
+}
+
+export default App;
